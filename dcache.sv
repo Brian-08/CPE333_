@@ -116,6 +116,23 @@ module L1_cache_tag (
 	// incluces valid and dirty bits
 	// async read, sync write
 	
+	cache_tag_type tag_mem[0:255];
+    
+    initial begin
+        for(int i=0; i<256; i++) begin
+            tag_mem[i].valid = 0;
+            tag_mem[i].dirty = 0;
+            tag_mem[i].tag = '0;
+        end
+    end
+    
+    always_comb //read (asynchronous)
+        tag_read = tag_mem[tag_req.index];
+    
+    always_ff @(posedge clk) begin
+        if (tag_req.we)
+            tag_mem[tag_req.index] <= tag_write;
+    end
 	
 endmodule
 
@@ -137,7 +154,7 @@ module dcache(
     logic from_ram;
     logic wait_read, next_wait_read;   
     
-    assign be = mhub.be; 	
+    assign be = mhub.be;
     assign block_offset = mhub.waddr[3:2];
    
     assign cpu_req.addr[ADDR_WIDTH-1:WORD_ADDR_LSB] = mhub.waddr;
@@ -171,7 +188,107 @@ module dcache(
     cpu_result_type next_cpu_res;
     
 	//FSM for Cache Controller
-    L1_cache_tag L1_tags(.*);
-    L1_cache_data L1_data(.*);
+    L1_cache_tag L1_tags(.clk(clk), .tag_req(tag_req), .tag_write(tag_write), .tag_read(tag_read));
+    L1_cache_data L1_data(.clk(clk), .data_req(data_req), .data_write(data_write), .be(be),
+                          .block_offset(block_offset), .from_ram(from_ram), .data_read(data_read));
+    
+    logic tag_match;
+   
+    initial begin
+        state = idle;
+        next_state = compare_tag;
+    end
+    
+    always_comb begin
+        tag_match = (tag_read.tag == tag_write.tag);
+        if (state == idle) begin
+            if (cpu_req.valid) begin
+                next_state = compare_tag;
+                cpu_res.ready = 1;
+            end
+            else
+                next_state = idle;
+        end
+        else if (state == compare_tag)
+            if (tag_match && tag_read.valid) //hit
+                next_state = idle;
+            else
+                if (tag_read.dirty)
+                    next_state = writeback;
+                else
+                    next_state = allocate;
+        else if (state == allocate)
+            if (!wait_read)
+                next_state = compare_tag;
+            else
+                next_state = allocate;
+        else if (state == writeback)
+            if (mem_data.ready)
+                next_state = allocate;
+            else
+                next_state = writeback;
+    end
+    
+    always_ff @(posedge clk) begin
+        if (state == idle)
+            if (cpu_req.valid) begin    
+                cpu_res.data <= data_read;
+                tag_req.index <= cpu_res.addr[9:2];
+                tag_req.we <= 1;
+                data_write <= cpu_req.data;
+            end
+    //====================================================// For neatness homie                
+        else if (state == compare_tag) begin
+            if (tag_match && tag_read.valid) begin //hit
+                cpu_res.ready <= 0; //COME BACK PLS
+                data_req.index <= cpu_req.addr[13:6];
+                tag_write.valid <= 1;
+                tag_write.tag <= cpu_res.addr[29:10]; //20 MSB (Due to given code)
+                if (cpu_req.rw) begin //write
+                    tag_write.dirty <= 1;
+                    data_req.we <= 1;
+                end
+                else
+                    tag_write.dirty <= 0;
+            end
+            else begin //miss
+                from_ram <= 1;
+                if (tag_read.dirty) begin
+                    next_state = writeback; //writeback policy step
+                    mem_req.addr <= mhub.waddr; //Check this later (if signal direction is correct)
+                    mem_req.en <= 1;
+                    mem_req.we <= mhub.we;
+                    mem_req.din <= mhub.din;
+                end
+                else
+                    next_state = allocate;
+                    next_wait_read <= 1;
+            end
+        end
+        //====================================================// For neatness homie 
+        else if (state == allocate) begin
+                if (!wait_read)
+                    next_state = compare_tag;
+                else begin
+                    if (mem_req.we) begin
+                        data_write <= mem_data.data;
+                        next_wait_read <= 0;
+                    end
+                    next_state = allocate;
+                end
+        end
+        //====================================================// For neatness homie 
+        else if (state == writeback) begin
+            if (mem_data.ready) begin
+                next_wait_read <= 1;
+                next_state = allocate;
+            end
+            else
+                next_state = writeback;
+        end
+        
+        state <= next_state;
+        wait_read <= next_wait_read;
+    end
 
 endmodule
