@@ -1,0 +1,12 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../otter_multicycle_memoryhub_cache_templates/memory_interfaces.sv" \
+"../../../../../otter_multicycle_memoryhub_cache_templates/dcache.sv" \
+"../../../../../otter_multicycle_memoryhub_cache_templates/icache.sv" \
+"../../../../../otter_multicycle_memoryhub_cache_templates/cache_testbench.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

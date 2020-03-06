@@ -1,0 +1,139 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+==== (checking invalid tag match) Read, cold-start miss (allocate, block now valid and clean) ==================
+[CPU] read waddr=00000000 (addr=00000003..00000000)
+[Memory] Data Read started @ baddr=0000000 (addr=0000000f..00000000)
+[Memory] Data Read finished @ baddr=0000000 (addr=0000000f..00000000) with data=4b7dad7111aa23301944fd6db2055e5f
+[CPU] got data=b2055e5f
+================ Testing various cases, with delays between ====================================================
+==== Read, cold-start miss (allocate, block now valid and clean) ===============================================
+[CPU] read waddr=0048d004 (addr=01234013..01234010)
+[Memory] Data Read started @ baddr=0123401 (addr=0123401f..01234010)
+[Memory] Data Read finished @ baddr=0123401 (addr=0123401f..01234010) with data=8832e97688f820c98b3373b29827043e
+[CPU] got data=9827043e
+==== Write, cold-start miss (allocate then update, block now valid and dirty) ==================================
+[CPU] write waddr=0048d009 (addr=01234027..01234024) with data=aabbccdd
+[Memory] Data Read started @ baddr=0123402 (addr=0123402f..01234020)
+[Memory] Data Read finished @ baddr=0123402 (addr=0123402f..01234020) with data=feb1a64ac99c9e59efd2d505e68aa20b
+[CPU] write accepted
+==== Read, hit, clean block (block still clean) ================================================================
+[CPU] read waddr=0048d006 (addr=0123401b..01234018)
+[CPU] got data=88f820c9
+==== Read, hit, dirty block (block still dirty) ================================================================
+[CPU] read waddr=0048d00b (addr=0123402f..0123402c)
+[CPU] got data=feb1a64a
+==== Read, conflict miss, clean block (allocate, block still clean) ============================================
+[CPU] read waddr=010c8404 (addr=04321013..04321010)
+[Memory] Data Read started @ baddr=0432101 (addr=0432101f..04321010)
+[Memory] Data Read finished @ baddr=0432101 (addr=0432101f..04321010) with data=e190eac386e48fc0d294bf22fb0648b7
+[CPU] got data=fb0648b7
+==== Read, conflict miss, dirty block (write back then allocate, block now clean) ==============================
+[CPU] read waddr=010c8409 (addr=04321027..04321024)
+[Memory] Data Write started @ baddr=0123402 (addr=0123402f..01234020) with data=feb1a64ac99c9e59aabbccdde68aa20b
+[Memory] Data Write accepted @ baddr=0123402 (addr=0123402f..01234020)
+[Memory] Data Write finished @ baddr=0123402 (addr=0123402f..01234020)
+[Memory] Data Read started @ baddr=0432102 (addr=0432102f..04321020)
+[Memory] Data Read finished @ baddr=0432102 (addr=0432102f..04321020) with data=3d6ddcdfe042910dd0812e19c2679427
+[CPU] got data=d0812e19
+==== Write, hit, clean block (update, block now dirty) =========================================================
+[CPU] write waddr=010c8406 (addr=0432101b..04321018) with data=bbccddee
+[CPU] write accepted
+==== Write, hit, dirty block (update, block still dirty) =======================================================
+[CPU] write waddr=010c8407 (addr=0432101f..0432101c) with data=ccddeeff
+[CPU] write accepted
+==== Write, conflict miss, clean block (allocate then update, block now dirty) =================================
+[CPU] write waddr=0159e008 (addr=05678023..05678020) with data=ddeeffaa
+[Memory] Data Read started @ baddr=0567802 (addr=0567802f..05678020)
+[Memory] Data Read finished @ baddr=0567802 (addr=0567802f..05678020) with data=e57d81631efec7a2e72720cd2315ed3c
+[CPU] write accepted
+==== Write, conflict miss, dirty block (write back then allocate then update, block still dirty) ===============
+[CPU] write waddr=0159e005 (addr=05678017..05678014) with data=eeffaabb
+[Memory] Data Write started @ baddr=0432101 (addr=0432101f..04321010) with data=ccddeeffbbccddeed294bf22fb0648b7
+[Memory] Data Write accepted @ baddr=0432101 (addr=0432101f..04321010)
+[Memory] Data Write finished @ baddr=0432101 (addr=0432101f..04321010)
+[Memory] Data Read started @ baddr=0567801 (addr=0567801f..05678010)
+[Memory] Data Read finished @ baddr=0567801 (addr=0567801f..05678010) with data=dabe3c23a2eb5e42ff4158af37a84ee7
+[CPU] write accepted
+==== (verifying state) Read, conflict miss, dirty block (write back then allocate, block now clean) ============
+[CPU] read waddr=021d9406 (addr=0876501b..08765018)
+[Memory] Data Write started @ baddr=0567801 (addr=0567801f..05678010) with data=dabe3c23a2eb5e42eeffaabb37a84ee7
+[Memory] Data Write accepted @ baddr=0567801 (addr=0567801f..05678010)
+[Memory] Data Write finished @ baddr=0567801 (addr=0567801f..05678010)
+[Memory] Data Read started @ baddr=0876501 (addr=0876501f..08765010)
+[Memory] Data Read finished @ baddr=0876501 (addr=0876501f..08765010) with data=9e10c863c03bbd86c1ea25e4e668797c
+[CPU] got data=c03bbd86
+==== (verifying state) Read, conflict miss, dirty block (write back then allocate, block now clean) ============
+[CPU] read waddr=021d940b (addr=0876502f..0876502c)
+[Memory] Data Write started @ baddr=0567802 (addr=0567802f..05678020) with data=e57d81631efec7a2e72720cdddeeffaa
+[Memory] Data Write accepted @ baddr=0567802 (addr=0567802f..05678020)
+[Memory] Data Write finished @ baddr=0567802 (addr=0567802f..05678020)
+[Memory] Data Read started @ baddr=0876502 (addr=0876502f..08765020)
+[Memory] Data Read finished @ baddr=0876502 (addr=0876502f..08765020) with data=2793f810f8cf0486e3271bc9c12b7e93
+[CPU] got data=2793f810
+================ Testing various cases, with no delays between, and partial-word writes ========================
+==== Read, cold-start miss (allocate, block now valid and clean) ===============================================
+[CPU] read waddr=0048d014 (addr=01234053..01234050)
+[Memory] Data Read started @ baddr=0123405 (addr=0123405f..01234050)
+[Memory] Data Read finished @ baddr=0123405 (addr=0123405f..01234050) with data=1f68e1863f49e9a98fc0b571d100b910
+[CPU] got data=d100b910
+==== Write, cold-start miss (allocate then update, block now valid and dirty) ==================================
+[CPU] write waddr=0048d019 (addr=01234067..01234064) with data=aabb____
+[Memory] Data Read started @ baddr=0123406 (addr=0123406f..01234060)
+[Memory] Data Read finished @ baddr=0123406 (addr=0123406f..01234060) with data=4ac678e5e3eb7dacf8b426ec3b729619
+[CPU] write accepted
+==== Read, hit, clean block (block still clean) ================================================================
+[CPU] read waddr=0048d016 (addr=0123405b..01234058)
+[CPU] got data=3f49e9a9
+==== Read, hit, dirty block (block still dirty) ================================================================
+[CPU] read waddr=0048d01b (addr=0123406f..0123406c)
+[CPU] got data=4ac678e5
+==== Read, conflict miss, clean block (allocate, block still clean) ============================================
+[CPU] read waddr=010c8414 (addr=04321053..04321050)
+[Memory] Data Read started @ baddr=0432105 (addr=0432105f..04321050)
+[Memory] Data Read finished @ baddr=0432105 (addr=0432105f..04321050) with data=1641a2304ddf4124a4a370881c56a4b1
+[CPU] got data=1c56a4b1
+==== Read, conflict miss, dirty block (write back then allocate, block now clean) ==============================
+[CPU] read waddr=010c8419 (addr=04321067..04321064)
+[Memory] Data Write started @ baddr=0123406 (addr=0123406f..01234060) with data=4ac678e5e3eb7dacaabb26ec3b729619
+[Memory] Data Write accepted @ baddr=0123406 (addr=0123406f..01234060)
+[Memory] Data Write finished @ baddr=0123406 (addr=0123406f..01234060)
+[Memory] Data Read started @ baddr=0432106 (addr=0432106f..04321060)
+[Memory] Data Read finished @ baddr=0432106 (addr=0432106f..04321060) with data=92954f88cf492658c2b04d7d027f9dd1
+[CPU] got data=c2b04d7d
+==== Write, hit, clean block (update, block now dirty) =========================================================
+[CPU] write waddr=010c8416 (addr=0432105b..04321058) with data=____ddee
+[CPU] write accepted
+==== Write, hit, dirty block (update, block still dirty) =======================================================
+[CPU] write waddr=010c8417 (addr=0432105f..0432105c) with data=cc______
+[CPU] write accepted
+==== Write, conflict miss, clean block (allocate then update, block now dirty) =================================
+[CPU] write waddr=0159e018 (addr=05678063..05678060) with data=__ee____
+[Memory] Data Read started @ baddr=0567806 (addr=0567806f..05678060)
+[Memory] Data Read finished @ baddr=0567806 (addr=0567806f..05678060) with data=7b07db7a7d16e0c63765927a1b67dc43
+[CPU] write accepted
+==== Write, conflict miss, dirty block (write back then allocate then update, block still dirty) ===============
+[CPU] write waddr=0159e015 (addr=05678057..05678054) with data=____aa__
+[Memory] Data Write started @ baddr=0432105 (addr=0432105f..04321050) with data=cc41a2304ddfddeea4a370881c56a4b1
+[Memory] Data Write accepted @ baddr=0432105 (addr=0432105f..04321050)
+[Memory] Data Write finished @ baddr=0432105 (addr=0432105f..04321050)
+[Memory] Data Read started @ baddr=0567805 (addr=0567805f..05678050)
+[Memory] Data Read finished @ baddr=0567805 (addr=0567805f..05678050) with data=8c2ee818a687c3efcfdb5ba3c3b43e7c
+[CPU] write accepted
+==== (verifying state) Read, conflict miss, dirty block (write back then allocate, block now clean) ============
+[CPU] read waddr=021d9416 (addr=0876505b..08765058)
+[Memory] Data Write started @ baddr=0567805 (addr=0567805f..05678050) with data=8c2ee818a687c3efcfdbaaa3c3b43e7c
+[Memory] Data Write accepted @ baddr=0567805 (addr=0567805f..05678050)
+[Memory] Data Write finished @ baddr=0567805 (addr=0567805f..05678050)
+[Memory] Data Read started @ baddr=0876505 (addr=0876505f..08765050)
+[Memory] Data Read finished @ baddr=0876505 (addr=0876505f..08765050) with data=91e2e5f0cb59beded29e7b8b4604a9a8
+[CPU] got data=cb59bede
+==== (verifying state) Read, conflict miss, dirty block (write back then allocate, block now clean) ============
+[CPU] read waddr=021d941b (addr=0876506f..0876506c)
+[Memory] Data Write started @ baddr=0567806 (addr=0567806f..05678060) with data=7b07db7a7d16e0c63765927a1beedc43
+[Memory] Data Write accepted @ baddr=0567806 (addr=0567806f..05678060)
+[Memory] Data Write finished @ baddr=0567806 (addr=0567806f..05678060)
+[Memory] Data Read started @ baddr=0876506 (addr=0876506f..08765060)
+[Memory] Data Read finished @ baddr=0876506 (addr=0876506f..08765060) with data=e5396c6406dec455979957fa7044fe8d
+[CPU] got data=e5396c64
+================ DONE ==========================================================================================
+$finish called at time : 11150 ns : File "C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv" Line 157

@@ -1,0 +1,9 @@
+0.6
+2019.2
+Nov  6 2019
+21:57:16
+C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/cache_fix/cache_fix.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,
+C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv,1582784107,systemVerilog,,,,cache_testbench;sim_delay_ram;sim_slow_ram;sim_xilinx_bram_tdp_nc_nr,,,,,,,,
+C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/dcache.sv,1583398202,systemVerilog,C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/memory_interfaces.sv,C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/icache.sv,,L1_cache_data;L1_cache_tag;cache_def;dcache,,,,,,,,
+C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/icache.sv,1581623944,systemVerilog,,C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv,,icache,,,,,,,,
+C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/memory_interfaces.sv,1583285171,systemVerilog,C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv;C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/dcache.sv;C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/icache.sv,C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/dcache.sv,,$unit_memory_interfaces_sv;i_cpud_to_mhub;i_cpui_to_mhub;i_dcache_to_ram;i_icache_to_ram;i_mhub_to_dcache;i_mhub_to_icache;i_mhub_to_mmio;i_prog_to_mhub;memory_bus_sizes;memory_interfaces;vlm_protocol_validator,,,,,,,,

@@ -1,0 +1,31 @@
+Vivado Simulator 2019.2
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2019.2/bin/unwrapped/win64.o/xelab.exe -wto 4a5b51a3e38c4b7f8a181b23c7d2cc17 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot cache_testbench_behav xil_defaultlib.cache_testbench xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-587] dynamic variables shall not be written with non-blocking assignments [C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv:395]
+WARNING: [VRFC 10-587] dynamic variables shall not be written with non-blocking assignments [C:/Users/Kelechi/Documents/Cal_Poly/CPE_333/lab2/otter_multicycle_memoryhub_cache_templates/cache_testbench.sv:409]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.cache_def
+Compiling package xil_defaultlib.memory_bus_sizes
+Compiling package xil_defaultlib.$unit_memory_interfaces_sv
+Compiling module xil_defaultlib.i_mhub_to_dcache
+Compiling module xil_defaultlib.i_icache_to_ram
+Compiling module xil_defaultlib.i_dcache_to_ram
+Compiling module xil_defaultlib.L1_cache_tag
+Compiling module xil_defaultlib.L1_cache_data
+Compiling module xil_defaultlib.dcache
+Compiling module xil_defaultlib.sim_delay_ram(PORT_NAME="Instruc...
+Compiling module xil_defaultlib.sim_delay_ram(PORT_NAME="Data",M...
+Compiling module xil_defaultlib.sim_xilinx_bram_tdp_nc_nr(ADDR_W...
+Compiling module xil_defaultlib.sim_slow_ram
+Compiling module xil_defaultlib.vlm_protocol_validator(DISPLAY_N...
+Compiling module xil_defaultlib.vlm_protocol_validator(DISPLAY_N...
+Compiling module xil_defaultlib.cb
+Compiling module xil_defaultlib.cache_testbench
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot cache_testbench_behav
